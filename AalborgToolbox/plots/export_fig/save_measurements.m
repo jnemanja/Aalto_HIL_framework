@@ -1,0 +1,29 @@
+function save_measuerments(name)
+    
+    scopes = {{'quaternion_error', 'attitude error $q_{ob}$'}, ...
+              {'angular_velocity', 'angular velocity $\omega_{ob}^b$, ${deg \over s}$'}, ...
+              {'angular_velocity_normed', 'angular velocity (normed) $\omega_{ob}^b$, ${deg \over s}$'}, ...
+              {'angle_error', 'attitude error $alpha$, $deg$'}, ...
+              {'control_torque', 'control torque $T_c$, $Nm$'}, ...
+              {'dist', 'total disturbance $T_d$, $Nm$'}, ...
+              {'magnetic_dipole', 'control magnetic dipole moment $m$, ${{Nm} \over T}$'}, ...
+              {'magnetic_field', 'magnetic field $B$, $T$'}, ...
+              {'dist_sep', 'disturbance $T$, $Nm$'}, ...
+              {'magnetic_field1', 'algorithm errors'}};
+    
+    cd plots
+    eval(['mkdir ', name]);
+    eval(['cd ', name]);
+    
+    save('workspace.mat');
+    
+    k = size(scopes, 2);
+    for l = 1:k
+        save_fig(scopes{l}{1}, scopes{l}{2});
+    end
+    save_fig_hist(scopes{4}{1}, scopes{4}{2});
+    
+    cd ../..
+
+    
+end
